@@ -11,9 +11,9 @@ exec("sudo /usr/bin/python /home/pi/RFID/ajout.py '$id'");
 
 
 // sleep php process
-sleep(5);
+sleep(3);
 // redirect
-header("location: afficher.php");
+header("location: index.php");
 
 
 

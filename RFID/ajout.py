@@ -36,7 +36,7 @@ while continue_reading:
 
 
 
-    os.system('pkill -f /home/pi/RFID-RC522/MFRC522.py')
+    os.system('sudo pkill -f /home/pi/RFID-RC522/MFRC522.py')
 
     # Detecter les tags
     (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
