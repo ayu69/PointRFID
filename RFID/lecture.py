@@ -8,12 +8,8 @@ import signal
 import MySQLdb
 import sys
 import os
+import time
 
-out = open('/home/pi/RFID/ajout.log','w')
-sys.stdout = out
-sys.stderr = out
-
-id=sys.argv[1]
 
 # Variables for MySQL
 db = MySQLdb.connect(host="localhost", user="root",passwd="Melec", db="RFID")
@@ -49,35 +45,36 @@ while continue_reading:
     (status,uid) = MIFAREReader.MFRC522_Anticoll()
 
     if status == MIFAREReader.MI_OK:
-        print 'ID eleve =', id
 
-        uid2 = (str(uid[0])+""+str(uid[1])+""+str(uid[2])+""+str(uid[3]))
+        uid2 = (str(uid[0])+str(uid[1])+str(uid[2])+str(uid[3]))
 
-        print "Ecriture dans la base..."
+        print uid2
+        
+        if uid2 is None:
+            GPIO.cleanup()
+        else:
+            print "Lecture de la base..."
 
-        # Execute the SQL command
-        sql = "UPDATE ELEVE SET UID = %s WHERE ID = %s"
-        val = (uid2, id)
+            # Execute the SQL command
+            sql = "SELECT * FROM ELEVE WHERE UID = (%s)"
 
-        cur.execute(sql, val)
+            cur.execute(sql, [uid2])
 
-        # Commit your changes in the database
-        db.commit()
-        print "Ecriture termine"
-
-        # Clee d authentification par defaut
-        key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
-
-        # Selection du tag
-        MIFAREReader.MFRC522_SelectTag(uid)
-
-        # Authentification
-        status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
+            rows = cur.fetchall()
+     
+            print "ID = ",rows[0][0]
+            print "Nom = ",rows[0][1]
+            print "Prenom = ",rows[0][2]
+            print "Email = ",rows[0][3]
+            print "Groupe = ",rows[0][4]
+            print "Entreprise = ",rows[0][5]
+            print "UID = ",rows[0][6]
+            print "Heure = ",time.strftime("%Y-%m-%d %H:%M")
 
         if status == MIFAREReader.MI_OK:
             #MIFAREReader.MFRC522_Read(8)
             MIFAREReader.MFRC522_StopCrypto1()
-            sys.exit()
+            GPIO.cleanup()
 
         else:
-            sys.exit()
+            GPIO.cleanup()

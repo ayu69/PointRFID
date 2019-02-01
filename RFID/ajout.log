@@ -1,10 +1,8 @@
 /home/pi/RFID/MFRC522.py:113: RuntimeWarning: This channel is already in use, continuing anyway.  Use GPIO.setwarnings(False) to disable warnings.
   GPIO.setup(22, GPIO.OUT)
 Carte detectee
-id= 14
-Writing to database...
-Write Complete
+ID eleve = 13
+Ecriture dans la base...
+Ecriture termine
 ERREUR AUTHENTIFICATION
 AUTH ERROR (status2reg & 0x08) != 0
-Erreur d'Authentification
-Failed writing to database
