@@ -201,7 +201,7 @@ while True:
 								row_main_file = row_main_file + 1
 
 						workbook_name = "Presence du "
-						wb.save('/home/pi/PointRFID/'+workbook_name + DATE +".xlsx")
+						wb.save('/home/pi/PointRFID/Export/'+workbook_name + DATE +".xlsx")
 
 						try:
 							sql_export = "UPDATE LOG SET EXPORT = 'True' WHERE EXPORT = 'False'"
