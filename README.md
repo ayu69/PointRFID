@@ -58,9 +58,8 @@ to
  	fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
  	}
 
- sudo chown -R www-data:pi /var/www/html/
-
- sudo chmod -R 770 /var/www/html/
+sudo chown -R pi:www-data /var/www/html/
+sudo chmod -R 770 /var/www/html/
 
 nano /var/www/html/index.php
 
