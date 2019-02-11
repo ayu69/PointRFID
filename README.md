@@ -21,6 +21,7 @@ installation de python et des dependances :
     sudo pip install spidev
     sudo pip install RPi.GPIO
     sudo pip install pi-rc522
+    sudo pip install mysql-connector-python
 
 
 COPIER ET TESTER LE SCRIPT test_RFID.py
