@@ -23,7 +23,8 @@ installation de python et des dependances :
     sudo pip install pi-rc522
     sudo pip install mysql-connector-python
     sudo pip install openpyxl
-
+    sudo apt install smbus python-pip
+	sudo pip install asukiaaa_py_i2c_lcd
 
 COPIER ET TESTER LE SCRIPT test_RFID.py
 
