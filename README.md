@@ -27,6 +27,7 @@ installation de python et des dependances :
 
 COPIER ET TESTER LE SCRIPT test_RFID.py
 
+    chmod -R 7777 /home/pi/PointRFID
 
 
 INSTALLATION DE NGINX PHP MYSQL
@@ -128,4 +129,8 @@ requete sql
         UNIQUE (ID),
         PRIMARY KEY (ID)
     );
+
+
+
+
 
