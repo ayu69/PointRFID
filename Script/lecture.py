@@ -81,12 +81,15 @@ while True:
 				ENTREPRISE = rows[0][5]
 				UID = rows[0][6]
 				HEURE = time.strftime("%Y-%m-%d %H:%M")
-				EXPORT = 0
+				EXPORT = 'False'
+				
 
 				presence = 0
 
-				presence = "SELECT * FROM LOG WHERE ID = (%s) AND EXPORT = 0"
-				presence = cur.execute(presence, [ID])
+				presence = "SELECT * FROM LOG WHERE RFID_UID = (%s) AND EXPORT = 'False'"
+				presence = cur.execute(presence, [UID])
+
+				print presence
 
 				if presence == 1:
 				#Suppression de la ligne
@@ -114,9 +117,9 @@ while True:
 					#Insertion de l'eleve
 					try:
 				
-						insertion = """ INSERT INTO `LOG`(`ID`, `NOM`, `PRENOM`, `GROUPE`, `ENTREPRISE`, `HEURE`, `EXPORT`) VALUES (%s,%s,%s,%s,%s,%s,%s)"""
+						insertion = """ INSERT INTO `LOG`(`NOM`, `PRENOM`, `GROUPE`, `ENTREPRISE`, `RFID_UID`, `HEURE`, `EXPORT`) VALUES (%s,%s,%s,%s,%s,%s,%s)"""
 
-						insertion_var = (ID, NOM, PRENOM, GROUPE, ENTREPRISE, HEURE, EXPORT)
+						insertion_var = (NOM, PRENOM, GROUPE, ENTREPRISE, RFID_UID, HEURE, EXPORT)
 						
 						result = cur.execute(insertion, insertion_var)
 
@@ -195,16 +198,26 @@ while True:
 								sheet.cell(row=row_main_file, column=5).value = value[5]
 							except:
 								print("Error in line %s\n data=%s" % (index, value))
-							row_main_file = row_main_file + 1
+								row_main_file = row_main_file + 1
 
 						workbook_name = "Presence du "
 						wb.save('/home/pi/PointRFID/'+workbook_name + DATE +".xlsx")
 
-						sql_export = "UPDATE LOG SET EXPORT = 1"
-						cur.execute(sql_export)
+						try:
+							sql_export = "UPDATE LOG SET EXPORT = 'True' WHERE EXPORT = 'False'"
+							cur.execute(sql_export)
+							db.commit()
 
-						print ("\nMise A 1 de la valeur export...")
-						sys.stdout.flush()
+							print ("\nMise A 1 de la valeur export...")
+							sys.stdout.flush()
+
+						except mysql.connector.Error as error :
+							db.rollback()
+
+							print("\nImpossible d\'executer la commande vers MySQL {}".format(error))
+							sys.stdout.flush()
+							GPIO.output(35, GPIO.HIGH) # Turn on
+							sleep(1)
 
 						#Allumer Led Orange
 						GPIO.output(35, GPIO.HIGH) # Turn on

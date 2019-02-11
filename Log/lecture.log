@@ -3,6 +3,23 @@ Tag detected
 UID de la carte  :   1364140200
 
 Lecture de la base Worker...
+0
+
+Personne ajouter a la base
+Tag detected
+
+UID de la carte  :   1364140200
+
+Lecture de la base Worker...
+1
+
+Personne deja presente 
+Tag detected
+
+UID de la carte  :   1364140200
+
+Lecture de la base Worker...
+1
 
 Personne deja presente 
 Tag detected
@@ -16,6 +33,14 @@ Lecture de la base Worker...
 Creation du fichier...
 
 Mise A 1 de la valeur export...
+Tag detected
+
+UID de la carte  :   1364140200
+
+Lecture de la base Worker...
+0
+
+Personne ajouter a la base
 Traceback (most recent call last):
   File "lecture.py", line 43, in <module>
     rdr.wait_for_tag()
