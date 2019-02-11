@@ -1,0 +1,28 @@
+Tag detected
+
+UID de la carte  :   1364140200
+
+Lecture de la base Worker...
+
+Personne deja presente 
+Tag detected
+
+UID de la carte  :   136440220
+
+Lecture de la base Worker...
+
+Lecture de la base Worker...
+
+Creation du fichier...
+
+Mise A 1 de la valeur export...
+Traceback (most recent call last):
+  File "lecture.py", line 43, in <module>
+    rdr.wait_for_tag()
+  File "/usr/local/lib/python2.7/dist-packages/pirc522/rfid.py", line 366, in wait_for_tag
+    waiting = not self.irq.wait(0.1)
+  File "/usr/lib/python2.7/threading.py", line 614, in wait
+    self.__cond.wait(timeout)
+  File "/usr/lib/python2.7/threading.py", line 359, in wait
+    _sleep(delay)
+KeyboardInterrupt

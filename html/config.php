@@ -2,8 +2,8 @@
 function getdb(){
 $servername = "localhost";
 $username = "root";
-$password = "Melec";
-$db = "RFID";
+$password = "MELEC";
+$db = "PointRFID";
  
 try {
    

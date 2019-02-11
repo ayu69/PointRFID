@@ -13,7 +13,7 @@ require_once 'config.php';
 	         {
 
 
-	           $sql = "INSERT into ELEVE (NOM_APPRENANT,PRENOM_APPRENANT,EMAIL,NOM_GROUPE,NOM_ENTREPRISE) 
+	           $sql = "INSERT into WORKER (NOM,PRENOM,GROUPE,ENTREPRISE,STATUT) 
                    values ('".$getData[0]."','".$getData[1]."','".$getData[2]."','".$getData[3]."','".$getData[4]."')";
                    $result = mysqli_query($con, $sql);
 				if(!isset($result))
@@ -37,7 +37,7 @@ require_once 'config.php';
 
 function get_all_records(){
     $con = getdb();
-    $Sql = "SELECT * FROM ELEVE";
+    $Sql = "SELECT * FROM WORKER";
     $result = mysqli_query($con, $Sql);  
 
 
@@ -47,9 +47,9 @@ function get_all_records(){
              <thead><tr><th>ID</th>
                           <th>Nom</th>
                           <th>Prenom</th>
-                          <th>Email</th>
                           <th>Groupe</th>
                           <th>Entreprise</th>
+                          <th>Statut</th>
                           <th>RFID UID</th>
                           <th>Commandes</th>
                         </tr></thead><tbody>";
@@ -58,12 +58,12 @@ function get_all_records(){
      while($row = mysqli_fetch_assoc($result)) {
 
          echo "<tr><td>" . $row['ID']."</td>
-                   <td>" . $row['NOM_APPRENANT']."</td>
-                   <td>" . $row['PRENOM_APPRENANT']."</td>
-                   <td>" . $row['EMAIL']."</td>
-                   <td>" . $row['NOM_GROUPE']."</td>
-                   <td>" . $row['NOM_ENTREPRISE']."</td>
-                   <td>" . $row['UID']."</td>
+                   <td>" . $row['NOM']."</td>
+                   <td>" . $row['PRENOM']."</td>
+                   <td>" . $row['GROUPE']."</td>
+                   <td>" . $row['ENTREPRISE']."</td>
+                   <td>" . $row['STATUT']."</td>
+                   <td>" . $row['RFID_UID']."</td>
                    <td>"
                    ?>
                    <div class="popup">
@@ -87,8 +87,8 @@ if(isset($_POST["Export"])){
       header('Content-Type: text/csv; charset=utf-8');  
       header('Content-Disposition: attachment; filename=data.csv');  
       $output = fopen("php://output", "w");  
-      fputcsv($output, array('NOM_APPRENANT', 'PRENOM_APPRENANT', 'EMAIL', 'NOM_GROUPE', 'NOM_ENTREPRISE', 'UID'));  
-      $query = "SELECT * from ELEVE ORDER BY ID DESC";  
+      fputcsv($output, array('NOM', 'PRENOM', 'GROUPE', 'ENTREPRISE','STATUT', 'UID'));  
+      $query = "SELECT * from WORKER ORDER BY ID DESC";  
       $result = mysqli_query($con, $query);  
       while($row = mysqli_fetch_assoc($result))  
       {  
