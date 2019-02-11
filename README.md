@@ -105,7 +105,7 @@ requete sql
 
     CREATE DATABASE PointRFID;
     
-    CREATE TABLE WORKER PointRFID(
+    CREATE TABLE WORKER (
         ID int NOT NULL AUTO_INCREMENT,
         NOM varchar(255),
         PRENOM varchar(255),
@@ -116,13 +116,15 @@ requete sql
         PRIMARY KEY (ID)
     );
     
-    CREATE TABLE LOG PointRFID(
-        ID int NOT NULL,
+    CREATE TABLE LOG (
+        ID int NOT NULL AUTO_INCREMENT,
         NOM varchar(255),
         PRENOM varchar(255),
         GROUPE varchar(255),
         ENTREPRISE varchar(255),
+        RFID_UID varchar(255),
         HEURE varchar(255),
+        UNIQUE (ID),
         PRIMARY KEY (ID)
     );
 
