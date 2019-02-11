@@ -124,11 +124,8 @@ requete sql
         ENTREPRISE varchar(255),
         RFID_UID varchar(255),
         HEURE varchar(255),
+        EXPORT varchar(32),
         UNIQUE (ID),
         PRIMARY KEY (ID)
     );
-
-
-
-
 
