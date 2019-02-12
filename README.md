@@ -136,7 +136,29 @@ requete sql
         PRIMARY KEY (ID)
     );
 
+Creation du service 
+
+    sudo nano /lib/systemd/system/PointRFID.service
+puis on ecrit :
+
+    [Unit] 
+    Description=PointRFID
+    After=multi-user.target 
+    
+    [Service] 
+    Type=simple 
+    ExecStart=/usr/bin/python /home/pi/PointRFID/Script/lecture.py 
+    Restart=on-abort 
+    
+    [Install] 
+    WantedBy=multi-user.target
 
 
+
+    sudo chmod 644 /lib/systemd/system/PointRFID.service
+    chmod +x /home/pi/PointRFID/Script/lecture.py 
+    sudo systemctl daemon-reload 
+    sudo systemctl enable PointRFID.service
+    sudo systemctl start PointRFID.service
 
 
