@@ -11,14 +11,13 @@ from mysql.connector import Error
 from mysql.connector import errorcode
 from datetime import datetime
 
+sys.path.insert(0, '/home/pi/PointRFID/Script/I2C-LCD/')
+import lcddriver
+
+
+lcd = lcddriver.lcd()
 
 GPIO.setwarnings(False)    # Ignore warning for now
-
-GPIO.setmode(GPIO.BOARD)   # Use physical pin numbering
-GPIO.setup(31, GPIO.OUT, initial=GPIO.LOW)   # Set pin 3 to be an output pin and set initial value to low (off) GREEN LED
-GPIO.setup(33, GPIO.OUT, initial=GPIO.LOW)   # Set pin 5 to be an output pin and set initial value to low (off) ORANGE LED
-GPIO.setup(35, GPIO.OUT, initial=GPIO.LOW)   # Set pin 7 to be an output pin and set initial value to low (off) RED LED
-GPIO.setup(37, GPIO.OUT, initial=GPIO.LOW)
 
 
 # Connect to DB -----------------------------------------------------------
@@ -39,6 +38,9 @@ sys.stderr = out
 
 while True:
 
+	lcd.lcd_clear()
+	lcd.lcd_display_string(" Pret ", 1)
+
 	# Detecter les tags
 	rdr.wait_for_tag()
 	(error, tag_type) = rdr.request()
@@ -49,22 +51,17 @@ while True:
 			RFID_UID = (str(uid[0])+""+str(uid[1])+""+str(uid[2])+""+str(uid[3]))
 			print ("\nUID de la carte  :  "),RFID_UID
 			sys.stdout.flush()
-			GPIO.output(31, GPIO.HIGH) # Turn on
-			sleep(0.25)                  # Sleep for 1 second
-			GPIO.output(31, GPIO.LOW)  # Turn off
-			sleep(0.25)   
-			GPIO.output(31, GPIO.HIGH) # Turn on
-			sleep(0.25)                  # Sleep for 1 second
-			GPIO.output(31, GPIO.LOW)  # Turn off
-			sleep(0.25)   
-			GPIO.output(31, GPIO.HIGH) # Turn on
-			sleep(0.25)                  # Sleep for 1 second
-			GPIO.output(31, GPIO.LOW)  # Turn off
-			sleep(0.25)   
-		
+			lcd.lcd_clear()
+			lcd.lcd_display_string(" Carte  ", 1)
+			lcd.lcd_display_string(" Detectee ", 2)
+			sleep(1)
 			try:
 				print ("\nLecture de la base Worker...")
 				sys.stdout.flush()
+				lcd.lcd_clear()
+				lcd.lcd_display_string(" Lecture  ", 1)
+				lcd.lcd_display_string(" En Cours ", 2)
+				sleep(1)
 
 				# Execute the SQL command
 				recuperation = "SELECT * FROM WORKER WHERE RFID_UID = (%s) AND STATUT = 'Eleve'"
@@ -97,21 +94,14 @@ while True:
 
 						print ("\nPersonne deja presente ")
 						sys.stdout.flush()
-						GPIO.output(31, GPIO.HIGH) # Turn on
-						GPIO.output(37, GPIO.HIGH)
-						sleep(0.25)
-						GPIO.output(37, GPIO.LOW)
-						sleep(0.25)
-						GPIO.output(37, GPIO.HIGH)
-						sleep(0.25)
-						GPIO.output(37, GPIO.LOW)
-						sleep(0.25)
+						lcd.lcd_clear()
+						lcd.lcd_display_string(" Personne  ", 1)
+						lcd.lcd_display_string(" Presente ", 2)
+						sleep(1)
 
 					except:
 						print ("\nErreur ")
 						sys.stdout.flush()
-						GPIO.output(33, GPIO.HIGH) # Turn on
-						sleep(1)
 
 				else:
 					#Insertion de l'eleve
@@ -126,23 +116,21 @@ while True:
 						data = cur.fetchall()
 
 						db.commit()
+
+						lcd.lcd_clear()
+						lcd.lcd_display_string(" Bonjour  ", 1)
+						lcd.lcd_display_string(" ..... ", 2)
+						sleep(1)
+
+
 						print ("\nPersonne ajouter a la base")
 						sys.stdout.flush()
-
-						GPIO.output(31, GPIO.HIGH) # Turn on
-						GPIO.output(37, GPIO.HIGH)
-						sleep(0.5)
-						GPIO.output(37, GPIO.LOW)
-						sleep(0.5)
 						
-
 					except mysql.connector.Error as error :
 						db.rollback()
 
 						print("\nImpossible d\'executer la commande vers MySQL {}".format(error))
 						sys.stdout.flush()
-						GPIO.output(35, GPIO.HIGH) # Turn on
-						sleep(1)
 			except:
 				try:
 					print ("\nLecture de la base Worker...")
@@ -156,11 +144,6 @@ while True:
 
 					if presence_master == 1:
 
-						GPIO.output(31, GPIO.HIGH) # Turn on
-						GPIO.output(33, GPIO.HIGH) # Turn on
-						sleep(1)
-
-
 						# Create Excel (.xlsx) file -----------------------------------------------
 						wb = Workbook()
 						# select demo.xlsx
@@ -168,6 +151,11 @@ while True:
 
 						print ("\nCreation du fichier...")
 						sys.stdout.flush()
+						lcd.lcd_clear()
+						lcd.lcd_display_string(" Export  ", 1)
+						lcd.lcd_display_string(" En Cours ", 2)
+						sleep(1)
+
 
 
 						result_sql = "SELECT * from LOG"
@@ -195,7 +183,7 @@ while True:
 								sheet.cell(row=row_main_file, column=2).value = value[2]
 								sheet.cell(row=row_main_file, column=3).value = value[3]
 								sheet.cell(row=row_main_file, column=4).value = value[4]
-								sheet.cell(row=row_main_file, column=5).value = value[5]
+								sheet.cell(row=row_main_file, column=5).value = value[6]
 							except:
 								print("Error in line %s\n data=%s" % (index, value))
 								row_main_file = row_main_file + 1
@@ -216,31 +204,15 @@ while True:
 
 							print("\nImpossible d\'executer la commande vers MySQL {}".format(error))
 							sys.stdout.flush()
-							GPIO.output(35, GPIO.HIGH) # Turn on
-							sleep(1)
-
-						#Allumer Led Orange
-						GPIO.output(35, GPIO.HIGH) # Turn on
-						sleep(0.25)
-						GPIO.output(35, GPIO.LOW) # Turn off
-						sleep(0.25)
-						GPIO.output(35, GPIO.HIGH) # Turn on
-						sleep(0.25)
-						GPIO.output(35, GPIO.LOW) # Turn off
-						sleep(0.25)
-
-
+					else:
+						print("\nCarte Non trouvee dans la base")
+						sys.stdout.flush()
+						lcd.lcd_clear()
+						lcd.lcd_display_string(" Carte  ", 1)
+						lcd.lcd_display_string(" Non Reconnu ", 2)
+						sleep(1)
 
 				except:
 					print("\nCarte Non trouvee dans la base")
 					sys.stdout.flush()
-					#Allumer Led Orange
-					GPIO.output(33, GPIO.HIGH) # Turn on
-					sleep(0.25)                  # Sleep for 1 second
-					GPIO.output(33, GPIO.LOW)  # Turn off
-					sleep(0.25)   
-					GPIO.output(33, GPIO.HIGH) # Turn on
-					sleep(0.25)                  # Sleep for 1 second
-					GPIO.output(33, GPIO.LOW)  # Turn off
-					sleep(0.25)  
 
