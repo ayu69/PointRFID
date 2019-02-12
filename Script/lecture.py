@@ -18,6 +18,10 @@ import lcddriver
 lcd = lcddriver.lcd()
 
 GPIO.setwarnings(False)    # Ignore warning for now
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(11,GPIO.OUT) #Buzzer
+GPIO.setup(13,GPIO.OUT) #LED Orange
+GPIO.setup(15,GPIO.OUT) #LED Verte
 
 
 # Connect to DB -----------------------------------------------------------
@@ -41,6 +45,8 @@ while True:
 	lcd.lcd_clear()
 	lcd.lcd_display_string(" Pret ", 1)
 
+	GPIO.output(13,GPIO.HIGH)
+
 	# Detecter les tags
 	rdr.wait_for_tag()
 	(error, tag_type) = rdr.request()
@@ -54,14 +60,24 @@ while True:
 			lcd.lcd_clear()
 			lcd.lcd_display_string(" Carte  ", 1)
 			lcd.lcd_display_string(" Detectee ", 2)
-			sleep(1)
 			try:
 				print ("\nLecture de la base Worker...")
 				sys.stdout.flush()
 				lcd.lcd_clear()
 				lcd.lcd_display_string(" Lecture  ", 1)
 				lcd.lcd_display_string(" En Cours ", 2)
-				sleep(1)
+				GPIO.output(13,GPIO.HIGH)
+				GPIO.output(11,GPIO.HIGH)
+				sleep(0.25)
+				GPIO.output(13,GPIO.LOW)
+				GPIO.output(11,GPIO.LOW)
+				sleep(0.25)
+				GPIO.output(13,GPIO.HIGH)
+				GPIO.output(11,GPIO.HIGH)
+				sleep(0.25)
+				GPIO.output(13,GPIO.LOW)
+				GPIO.output(11,GPIO.LOW)
+				sleep(0.25)
 
 				# Execute the SQL command
 				recuperation = "SELECT * FROM WORKER WHERE RFID_UID = (%s) AND STATUT = 'Eleve'"
@@ -102,6 +118,14 @@ while True:
 					except:
 						print ("\nErreur ")
 						sys.stdout.flush()
+						GPIO.output(15,GPIO.HIGH)
+						sleep(0.25)
+						GPIO.output(15,GPIO.LOW)
+						sleep(0.25)
+						GPIO.output(15,GPIO.HIGH)
+						sleep(0.25)
+						GPIO.output(15,GPIO.LOW)
+						sleep(0.25)
 
 				else:
 					#Insertion de l'eleve
@@ -131,10 +155,30 @@ while True:
 
 						print("\nImpossible d\'executer la commande vers MySQL {}".format(error))
 						sys.stdout.flush()
+
+						GPIO.output(15,GPIO.HIGH)
+						sleep(0.25)
+						GPIO.output(15,GPIO.LOW)
+						sleep(0.25)
+						GPIO.output(15,GPIO.HIGH)
+						sleep(0.25)
+						GPIO.output(15,GPIO.LOW)
+						sleep(0.25)
 			except:
 				try:
 					print ("\nLecture de la base Worker...")
 					sys.stdout.flush()
+
+					GPIO.output(13,GPIO.HIGH)
+					sleep(0.25)
+					GPIO.output(13,GPIO.LOW)
+					sleep(0.25)
+					GPIO.output(13,GPIO.HIGH)
+					sleep(0.25)
+					GPIO.output(13,GPIO.LOW)
+					sleep(0.25)
+					
+
 					# Execute the SQL command
 					test_master = "SELECT * FROM WORKER WHERE RFID_UID = (%s) AND STATUT = 'Formateur'"
 
@@ -154,7 +198,12 @@ while True:
 						lcd.lcd_clear()
 						lcd.lcd_display_string(" Export  ", 1)
 						lcd.lcd_display_string(" En Cours ", 2)
-						sleep(1)
+						GPIO.output(13,GPIO.HIGH)
+						GPIO.output(15,GPIO.HIGH)
+						time.sleep(1)
+						GPIO.output(13,GPIO.LOW)
+						GPIO.output(15,GPIO.LOW)
+
 
 
 
@@ -187,6 +236,18 @@ while True:
 							except:
 								print("Error in line %s\n data=%s" % (index, value))
 								row_main_file = row_main_file + 1
+								GPIO.output(15,GPIO.HIGH)
+								GPIO.output(11,GPIO.HIGH)
+								sleep(0.25)
+								GPIO.output(15,GPIO.LOW)
+								GPIO.output(11,GPIO.LOW)
+								sleep(0.25)
+								GPIO.output(15,GPIO.HIGH)
+								GPIO.output(11,GPIO.HIGH)
+								sleep(0.25)
+								GPIO.output(15,GPIO.LOW)
+								GPIO.output(11,GPIO.LOW)
+								sleep(0.25)
 
 						workbook_name = "Presence du "
 						wb.save('/home/pi/PointRFID/Export/'+workbook_name + DATE +".xlsx")
@@ -204,15 +265,50 @@ while True:
 
 							print("\nImpossible d\'executer la commande vers MySQL {}".format(error))
 							sys.stdout.flush()
+							GPIO.output(15,GPIO.HIGH)
+							GPIO.output(11,GPIO.HIGH)
+							sleep(0.25)
+							GPIO.output(15,GPIO.LOW)
+							GPIO.output(11,GPIO.LOW)
+							sleep(0.25)
+							GPIO.output(15,GPIO.HIGH)
+							GPIO.output(11,GPIO.HIGH)
+							sleep(0.25)
+							GPIO.output(15,GPIO.LOW)
+							GPIO.output(11,GPIO.LOW)
+							sleep(0.25)
 					else:
 						print("\nCarte Non trouvee dans la base")
 						sys.stdout.flush()
 						lcd.lcd_clear()
 						lcd.lcd_display_string(" Carte  ", 1)
 						lcd.lcd_display_string(" Non Reconnu ", 2)
-						sleep(1)
+						GPIO.output(15,GPIO.HIGH)
+						GPIO.output(11,GPIO.HIGH)
+						sleep(0.25)
+						GPIO.output(15,GPIO.LOW)
+						GPIO.output(11,GPIO.LOW)
+						sleep(0.25)
+						GPIO.output(15,GPIO.HIGH)
+						GPIO.output(11,GPIO.HIGH)
+						sleep(0.25)
+						GPIO.output(15,GPIO.LOW)
+						GPIO.output(11,GPIO.LOW)
+						sleep(0.25)
 
 				except:
 					print("\nCarte Non trouvee dans la base")
 					sys.stdout.flush()
+					GPIO.output(15,GPIO.HIGH)
+					GPIO.output(11,GPIO.HIGH)
+					sleep(0.25)
+					GPIO.output(15,GPIO.LOW)
+					GPIO.output(11,GPIO.LOW)
+					sleep(0.25)
+					GPIO.output(15,GPIO.HIGH)
+					GPIO.output(11,GPIO.HIGH)
+					sleep(0.25)
+					GPIO.output(15,GPIO.LOW)
+					GPIO.output(11,GPIO.LOW)
+					sleep(0.25)
 
