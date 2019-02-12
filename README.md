@@ -1,4 +1,4 @@
-
+![enter image description here](https://image.noelshack.com/fichiers/2019/07/2/1550010186-wiring.jpg)
 
     sudo raspi-config
 
