@@ -17,12 +17,19 @@ Mise à jour
 
 installation de python et des dependances :
 
-    sudo apt-get install python2.7-dev python-pip git i2c-tools python-smbus
+    sudo apt-get install python2.7-dev python-pip git i2c-tools python-smbus 
     sudo pip install spidev
     sudo pip install RPi.GPIO
     sudo pip install pi-rc522
     sudo pip install mysql-connector-python
     sudo pip install openpyxl
+On verifie l'ajout de l'I2C
+
+    sudo nano /etc/modules
+On devrait trouver ces deux lignes 
+
+    i2c-bcm2708
+    i2c-dev
 
 COPIER ET TESTER LE SCRIPT test_RFID.py
 
