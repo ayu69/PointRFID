@@ -4,6 +4,9 @@
 
 aller sur 5. Interfacing Options, puis dans P4. SPI et répondre Yes 
 
+changer aussi la timezone
+
+
 puis active I2C
 
     sudo reboot
