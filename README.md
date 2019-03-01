@@ -105,7 +105,7 @@ on va maintenant copier les fichiers nécessaire
 
 ## NGINX
 
-    sudo apt install nginx php-fpm php5-mysql php5-curl
+    sudo apt install nginx php-fpm php7.0-mysql php7.0-curl
     
     sudo nano /etc/nginx/sites-available/default
 Chercher et changer :
