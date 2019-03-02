@@ -266,6 +266,7 @@ on l'active :
 
     sudo systemctl enable PointRFID.service
 et on le démarre :
+
     sudo systemctl start PointRFID.service
 
 
