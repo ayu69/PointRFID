@@ -81,11 +81,11 @@ Mise à jour :
 installation de python et des dependances :
 
     sudo apt-get install python2.7-dev python-pip git i2c-tools python-smbus 
+    sudo apt-get install python-mysqldb
     sudo pip install spidev
     sudo pip install RPi.GPIO
     sudo pip install pi-rc522
     sudo pip install mysql-connector-python
-    sudo pip install mysql-python
     sudo pip install openpyxl
 On verifie l'ajout de l'I2C
 
