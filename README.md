@@ -296,3 +296,19 @@ et on le démarre :
     sudo systemctl start PointRFID.service
 
 
+## Ajout dans la base de donnée WORKER :
+
+Pour ajouter les personnes dans la base de donnée, il suffit de se rendre sur la page de gestion Adminer, puis d'aller dans la base PointRFID et enfin dans la table Worker.
+
+Deux solutions s'offre à vous :
+
+ - Ajout manuel des personnes via la page de la tables :
+![Ajout BDD](https://image.noelshack.com/fichiers/2019/10/2/1551790688-capture.jpg)
+ - Ajout via un CSV par le biais du bouton importer :
+![enter image description here](https://image.noelshack.com/fichiers/2019/10/2/1551790628-capture.jpg)
+
+Votre CSV devras alors être sous cette forme :
+
+    ID;NOM;PRENOM;GROUPE;ENTREPRISE;STATUT;RFID_UID
+    (laissez vide);votrenom;votreprenom;votregroupe;votreentreprise;votrestatut;(laissez vide);
+    etc....
