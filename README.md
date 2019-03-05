@@ -85,6 +85,7 @@ installation de python et des dependances :
     sudo pip install RPi.GPIO
     sudo pip install pi-rc522
     sudo pip install mysql-connector-python
+    sudo pip install mysql-python
     sudo pip install openpyxl
 On verifie l'ajout de l'I2C
 
