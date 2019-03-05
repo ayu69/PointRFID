@@ -215,6 +215,7 @@ Création de la table élève :
         GROUPE varchar(255),
         ENTREPRISE varchar(255),
         STATUT varchar(255),
+	RFID_UID varchar(255),
         UNIQUE (ID),
         PRIMARY KEY (ID)
     );
