@@ -38,7 +38,8 @@ Maintenant que l'on à les différentes données, nous allons pouvoir commencer 
 # Câblage :
 
 ![wiring](https://image.noelshack.com/fichiers/2019/07/2/1550010478-wiring.jpg)
-
+Interface de Gestion :
+![PointRFID](https://image.noelshack.com/fichiers/2019/10/2/1551789698-capture.jpg)
 # Programmation :
 
 Nous partirons du principe que vous avez une installation fraiche de raspbian lite, et que vous savez vous connecter en ssh à votre raspberry.
@@ -210,6 +211,8 @@ Dans ce cas précis, vous autorisez **toutes les commandes du systèmes** à êt
 
 depuis `<VOTREADRESSEIP>/adminer.php`
 
+![Adminer](https://image.noelshack.com/fichiers/2019/10/2/1551789698-capture2.jpg)
+
 connectez-vous, puis allez dans "requete sql "
 
 puis rentrer cette commande et éxécutez la :
@@ -217,6 +220,7 @@ puis rentrer cette commande et éxécutez la :
     CREATE DATABASE PointRFID;
 Nous avons ainsi créer la base de données PointRFID.
 Nous allons maintenant créer la table worker, pour cela retourner à l'acceuil d'Adminer, et selectionnez la base PointRFID, puis aller sur requetes SQL, et rentrer ces deux commandes séparément :
+
 
 Création de la table élève :
 
@@ -245,7 +249,7 @@ Puis création de la table des Log :
         UNIQUE (ID),
         PRIMARY KEY (ID)
     );
-
+![BDD Crée](https://image.noelshack.com/fichiers/2019/10/2/1551789698-capture3.jpg)
 ## Creation du service PointRFID
 
 afin que noter pointeuse se lance automatiquement à chaque redémarrage, nous allons créer un service afin que le script python démarre automatiquement.
