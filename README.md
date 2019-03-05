@@ -33,6 +33,14 @@ Comment remplacer les feuilles de présence dans notre centre de formation.
 
  - 1 x imprimante 3D
 
+## Améliorations envisageable :
+
+ - Ajout d'un bouton d'import CSV
+ - Ajout d'un bouton export CSV
+ - Envoi de Mail avec les fichiers Excel.
+ 
+
+
 Maintenant que l'on à les différentes données, nous allons pouvoir commencer à travailler !
 
 # Câblage :
