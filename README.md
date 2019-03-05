@@ -1,3 +1,4 @@
+
 # PointRFID
 
 PointRFID est un projet qui est issu d'un cahier des charges simple :
@@ -193,6 +194,17 @@ puis on donne les droits :
     sudo chown -R pi:www-data /var/www/html/
     sudo chmod -R 770 /var/www/html/
 
+On ajoute également l'utilisateur www-data à sudoers (afin de pouvoir éxecuter le script d'ajout en sudo)
+
+    sudo visudo
+
+et on ajoute sous l'user root :
+
+    www-data ALL=(ALL) NOPASSWD:ALL
+
+Dans ce cas précis, vous autorisez **toutes les commandes du systèmes** à être exécutées par votre utilisateur Nginx, bien évidemment c'est fortement déconseillé !
+
+**Attention : ceci n'est pas du tout sécuritaire, mais notre système RFID état dans un réseaux local et non ouvert sur l’extérieur, cela pose moins de problèmes.**
 
 ## Creation de la base de données :
 
