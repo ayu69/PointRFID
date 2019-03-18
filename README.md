@@ -171,6 +171,10 @@ on supprime l'utilisateur root éxistant :
   puis on créer un nouvel utilisateur root avec votre mot de passe :
 
     CREATE USER 'root'@'localhost' IDENTIFIED BY 'VOTRESUPERMOTDEPASSE';
+
+Par défaut le mot de passe que j'utilise pour les scripts est : MELEC
+Si vous souhaiter le changer, il faudrait le mettre à jour dans tout les scripts fournis.
+
 Et on donne tout les privilège à notre nouvel utilisateur :
 
     GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost';
