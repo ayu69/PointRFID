@@ -7,7 +7,7 @@ if (isset($_GET['ID'])) {
 }
 
 
-exec("/usr/bin/python /home/pi/PointRFID/Script/ajout.py '$id'");
+exec("sudo /usr/bin/python /home/pi/PointRFID/Script/ajout.py '$id'");
 
 
 // sleep php process
