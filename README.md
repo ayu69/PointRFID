@@ -45,7 +45,7 @@ Maintenant que l'on à les différentes données, nous allons pouvoir commencer 
 
 # Câblage :
 
-![wiring](https://zupimages.net/viewer.php?id=19/50/ia3p.jpg)
+![wiring](https://zupimages.net/up/19/50/ia3p.jpg)
 Interface de Gestion :
 ![PointRFID](https://image.noelshack.com/fichiers/2019/10/2/1551789698-capture.jpg)
 # Programmation :
